@@ -1,0 +1,24 @@
+query ExampleQuery {
+  company {
+    ceo
+    coo
+    cto
+    employees 
+    summary
+    name
+    links {
+      website
+    }
+    headquarters {
+      __typename
+      city
+    }
+  }
+  roadster {
+    apoapsis_au
+  }missions {
+    id
+    name
+  }
+}
+

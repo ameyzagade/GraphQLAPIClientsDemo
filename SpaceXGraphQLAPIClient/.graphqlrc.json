@@ -1,0 +1,21 @@
+﻿{
+  "schema": "schema.graphql",
+  "documents": "**/*.graphql",
+  "extensions": {
+    "strawberryShake": {
+      "name": "SpaceXGraphQLAPIClient",
+      "url": "https://spacex-production.up.railway.app/",
+      "namespace": "SpaceXGraphQLAPI.Client",
+      "records": {
+        "inputs": false,
+        "entities": false
+      },
+      "transportProfiles": [
+        {
+          "default": "Http",
+          "subscription": "WebSocket"
+        }
+      ]
+    }
+  }
+}

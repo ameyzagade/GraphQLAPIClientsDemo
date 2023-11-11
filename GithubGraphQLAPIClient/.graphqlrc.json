@@ -1,0 +1,21 @@
+﻿{
+  "schema": "schema.graphql",
+  "documents": "**/*.graphql",
+  "extensions": {
+    "strawberryShake": {
+      "name": "GitHubGraphQLAPIClient",
+      "url": "https://api.github.com/graphql",
+      "namespace": "GitHubGraphQLAPI.Client",
+      "records": {
+        "inputs": false,
+        "entities": false
+      },
+      "transportProfiles": [
+        {
+          "default": "Http",
+          "subscription": "WebSocket"
+        }
+      ]
+    }
+  }
+}

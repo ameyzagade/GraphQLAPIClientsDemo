@@ -1,9 +1,15 @@
 using System.Net.Http.Headers;
+using GraphQLAPIClientsDemo.Infrastructure.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// get configuration
+var graphQLClientsOptions = new GraphQLClientsOptions();
+builder.Configuration
+    .GetSection(nameof(GraphQLClientsOptions))
+    .Bind(graphQLClientsOptions);
 
+// Add services to the container.
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -13,13 +19,13 @@ builder.Services
     .AddGitHubGraphQLAPIClient()
     .ConfigureHttpClient(c => 
     {
-        c.BaseAddress = new Uri("https://api.github.com/graphql");
+        c.BaseAddress = new Uri(graphQLClientsOptions.GitHubGraphQLAPIEndpoint);
         c.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "");
     });
 
 builder.Services
     .AddSpaceXGraphQLAPIClient()
-    .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://spacex-production.up.railway.app"));
+    .ConfigureHttpClient(c => c.BaseAddress = new Uri(graphQLClientsOptions.SpaceXGraphQLAPIEndpoint));
 
 var app = builder.Build();
 

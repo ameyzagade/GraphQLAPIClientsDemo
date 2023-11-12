@@ -1,7 +1,14 @@
 using System.Net.Http.Headers;
+using System.Reflection;
 using GraphQLAPIClientsDemo.Infrastructure.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var secretsId = 
+builder.Configuration
+    .AddUserSecrets(Assembly.GetExecutingAssembly(), false);
+
+var githubPrivatePassKey = builder.Configuration.GetValue<string>("GithubPrivatePassKey");
 
 // get configuration
 var graphQLClientsOptions = new GraphQLClientsOptions();
@@ -19,8 +26,9 @@ builder.Services
     .AddGitHubGraphQLAPIClient()
     .ConfigureHttpClient(c => 
     {
+
         c.BaseAddress = new Uri(graphQLClientsOptions.GitHubGraphQLAPIEndpoint);
-        c.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", "");
+        c.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", githubPrivatePassKey);
     });
 
 builder.Services
